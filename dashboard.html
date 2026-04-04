@@ -330,11 +330,12 @@ function render(data,selMK,tab){
   sendH();
 }
 
-// ── CLEAN TIME helper — strips garbage Date object strings ──
+// ── CLEAN TIME helper — strips garbage Date object strings, keeps plain times like "3:00 PM" ──
 function cleanTime(t){
   if(!t)return'';
   var s=String(t).trim();
-  if(s.match(/\d{4}|GMT|UTC|IST|Dec|Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov/))return'';
+  // Garbage detection: full date strings contain 4-digit year or timezone keywords
+  if(s.match(/\d{4}|GMT|UTC|IST/))return'';
   return s;
 }
 
